@@ -23,6 +23,8 @@ typedef unsigned long long int ulli;
 
 int cmp(void *, void *, char, char);
 
+class matrix;
+
 template< typename T >
 int binarySearch(T* container, int size, T element, char type_flag, char func_flag)
 {
@@ -32,7 +34,7 @@ int binarySearch(T* container, int size, T element, char type_flag, char func_fl
     //cout  << "binary_search: type = " << type_flag << " func = " << func_flag  <<" element = " << element << endl;
 
     if (size < 1 || cmp(&element, container + right, type_flag, func_flag) > 0
-                 || cmp(&element, container + left, type_flag, func_flag) < 0)
+            || cmp(&element, container + left, type_flag, func_flag) < 0)
         return -1;
 
     //cout  << "binary_search: type = " << type_flag << " func = " << func_flag  <<" element = " << element << endl;
@@ -94,6 +96,7 @@ public:
     table();
     table(int);
     table(char *, char *, int);
+    table(matrix *, double, int , int);
     ~table();
 
     int read(char*);
@@ -142,6 +145,7 @@ public:
     ulli * users;
 
     matrix();
+    matrix(int quantity_users, double prob, double density); // создать тестовую матрицу
     matrix(table *);
     matrix(char *, char*);
     matrix(matrix *);
@@ -198,3 +202,5 @@ int max (int , int);
 
 int count(ulli * , int , ulli* , int );
 int intersect(ulli * , int , ulli* , int);
+
+int bernouli(double p);

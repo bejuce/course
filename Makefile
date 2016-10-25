@@ -1,6 +1,9 @@
-FLAGS=-c -O3
+FLAGS=-c -g
 run: main.o data.o matrix.o msg.o algoritm.o compare.o
 	g++ main.o data.o matrix.o msg.o algoritm.o compare.o -O3
+
+gen: test.o data.o matrix.o msg.o algoritm.o compare.o
+	g++ test.o msg.o data.o matrix.o algoritm.o compare.o -g -o gen
 
 analize: main2.o data.o matrix.o msg.o algoritm.o compare.o
 	g++ main2.o data.o matrix.o msg.o algoritm.o compare.o -O3 -o analize
@@ -26,5 +29,8 @@ algoritm.o: algoritm.cpp headers.h
 compare.o: compare.cpp headers.h
 	g++ compare.cpp $(FLAGS)
 
+test.o: test.cpp headers.h
+	g++ test.cpp $(FLAGS)
+
 clean: 
-	rm -rf *.o a.out analize
+	rm -rf *.o a.out analize gen

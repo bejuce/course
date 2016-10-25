@@ -72,7 +72,7 @@ matrix::matrix(table *tbl){
     for (j = 0; j < k - 1; j++){
         tmp_val = tbl->hash_chains[j + 1] - tbl->hash_chains[j];
         tmp_val = tmp_val * (tmp_val - 1);
-        size      += tmp_val / 2;
+        size    += tmp_val / 2;
     }
     tmp_val = tbl->size_data - tbl->hash_chains[k - 1];
     tmp_val = tmp_val * (tmp_val - 1);
