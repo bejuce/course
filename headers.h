@@ -122,6 +122,7 @@ public:
     int get_length_act_m(int);
     int compare_links(int, int, int, int);
 
+    void generate_users(int);
 };
 
 class pair1{
@@ -153,10 +154,12 @@ public:
 
     void clean(double);
     void get_indexes();
+    void generate_users(int);
     int index(pair1 );
     int index(int , int);
     void print();
     void fprint(char*, char*);
+    //void fscanf(char*, char*);
     void sort_cl();
     void sort_lc();
     void clean_minimize(table *);
@@ -204,3 +207,5 @@ int count(ulli * , int , ulli* , int );
 int intersect(ulli * , int , ulli* , int);
 
 int bernouli(double p);
+
+double check(matrix* mat1, matrix * mat2);

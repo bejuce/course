@@ -146,7 +146,7 @@ int matrix::index(int l_0, int c_0){
 int matrix::index(pair1 p){
 
     if (p.line > quantity_users - 1 || p.column > quantity_users - 1){
-        cout << "illegal pair (" << p.line << ", " << p.column << ")\n";
+        //cout << "Error\nindex(pair1 )\nillegal pair (" << p.line << ", " << p.column << ")\n";
         return -1;
     }
 
@@ -221,7 +221,6 @@ void matrix::fprint(char * matrix_out, char *users_out){
     }
     fclose(fout);
 }
-
 
 matrix::matrix(char * matrix_in, char *users_in){
     int j;
@@ -592,4 +591,33 @@ int intersect(ulli * array1, int size1, ulli* array2, int size2){
     }
     size1 = counter;
     return size1;
+}
+
+
+double check(matrix *mat1, matrix *mat2)
+{
+    int rez1 = 0, rez2 = 0;
+    int i;
+    double rez_1;
+    double rez_2;
+
+    for (i = 0; i < mat1->size; i++)
+    {
+        if (mat2->index(mat1->place[i].line, mat1->place[i].column) > -1)
+            rez1 += 1;
+    }
+
+    rez_1 = (double)rez1 / mat1->size;
+
+    for (i = 0; i < mat2->size; i++)
+    {
+        if (mat1->index(mat2->place[i].line, mat2->place[i].column) > -1)
+            rez2 += 1;
+    }
+
+    rez_2 = (double)rez2 / mat2->size;
+
+    printf("Lost: %f, Wrong: %f ", rez_2, rez_1);
+
+    return 2*rez_1*rez_2 / (rez_1 + rez_2);
 }

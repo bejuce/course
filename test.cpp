@@ -14,6 +14,8 @@ matrix::matrix(int quantity_users_, double p, double density)
     quantity_users = quantity_users_;
     size = (int)(quantity_users*quantity_users)*density*2;
 
+    generate_users(quantity_users);
+
     printf("size = %d\n", size);
 
     if (size > 0){
@@ -25,7 +27,6 @@ matrix::matrix(int quantity_users_, double p, double density)
     place   = new pair1[size];
     begin   = new int[quantity_users];
     end     = new int[quantity_users];
-    users   = new ulli[quantity_users];
 
     for (i = 0; i < quantity_users; i++)
     {
@@ -49,7 +50,41 @@ matrix::matrix(int quantity_users_, double p, double density)
 
     int tmp_line = place[0].line;
     begin[tmp_line] = 0;
-    for (i = 1; i < size; i++){
+    for (i = 1; i < size; i++)
+    {
+        if (place[i].line != tmp_line){
+            end[tmp_line] = i;
+            tmp_line = place[i].line;
+            begin[tmp_line] = i;
+        }
+    }
+    end[tmp_line] = size;
+
+    for (i = 0; i < size; i++)
+    {
+        if (begin[i] == -1)
+        {
+            val[counter]   = p;
+            place[counter] = pair1(i, rand() % quantity_users_);
+            counter++;
+
+            val[counter]   = p;
+            place[counter] = pair1(i, rand() % quantity_users_);
+            counter++;
+        }
+    }
+
+    size = counter;
+
+    for (i = 0; i < quantity_users; i++){
+        begin[i] = -1;
+        end[i]   = -1;
+    }
+
+    tmp_line = place[0].line;
+    begin[tmp_line] = 0;
+    for (i = 1; i < size; i++)
+    {
         if (place[i].line != tmp_line){
             end[tmp_line] = i;
             tmp_line = place[i].line;
@@ -58,7 +93,7 @@ matrix::matrix(int quantity_users_, double p, double density)
     }
     end[tmp_line] = size;
 }
-/*
+
 void table::generate_users(int N){
     int j;
     int counter = 0;
@@ -69,7 +104,19 @@ void table::generate_users(int N){
 
     for (j = 0; j < quantity_users; j++)
         users[j] = j;
-}*/
+}
+
+void matrix::generate_users(int N){
+    int j;
+    int counter = 0;
+
+    quantity_users = N;
+
+    users = new ulli[quantity_users];
+
+    for (j = 0; j < quantity_users; j++)
+        users[j] = j;
+}
 
 table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
 {
@@ -80,8 +127,10 @@ table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
     quantity_chains = 0;
     size_activity_m = 0;
     size_activity_t = 0;
-    quantity_users = 0;
-    size_data = 5*number_of_msg;
+    quantity_users = mat->quantity_users;
+    size_data = 50*number_of_msg;
+
+    generate_users(quantity_users);
 
     msg ms;
 
@@ -125,33 +174,39 @@ table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
             for (j = 0; j < retweet_counter; j++)
             {
                 local_root = roots[j];
-                //printf("local_root = %d beg = %d end = %d\n ", local_root, mat->begin[local_root], mat->end[local_root]);
-                for (i = mat->begin[local_root]; i < mat->end[local_root]; i++)
+                if (local_root > -1)
                 {
-                    if (truemap[mat->place[i].column] == 1)
+                    if (local_root > quantity_users - 1 || local_root < 0)
+                        printf("Error\ntable::table(matrix * mat, double read_p, int number_of_msg, int t_max)\nillegal local_root %d\n", local_root);
+                    //printf("local_root = %d beg = %d end = %d\n ", local_root, mat->begin[local_root], mat->end[local_root]);
+                    for (i = mat->begin[local_root]; i < mat->end[local_root]; i++)
                     {
-                        if(bernouli(read_p) == 1)
+                        if (truemap[mat->place[i].column] == 1)
                         {
-                            truemap[mat->place[i].column] = 0;
-                            if (bernouli(p) == 1)
+                            if(bernouli(read_p) == 1)
                             {
-                                ms.id_m          = k;
-                                ms.id_p          = mat->place[i].column;
-                                ms.time          = t;
-                                ms.retweet_count = retweet_counter + retweet_counter_tmp;
-                                data[counter]    = ms;
-                                counter++;
-                                roots[retweet_counter + retweet_counter_tmp] = mat->place[i].column;
-                                retweet_counter_tmp++;
+                                truemap[mat->place[i].column] = 0;
+                                if (bernouli(p) == 1)
+                                {
+                                    ms.id_m          = k;
+                                    ms.id_p          = mat->place[i].column;
+                                    ms.time          = t;
+                                    ms.retweet_count = retweet_counter + retweet_counter_tmp;
+                                    data[counter]    = ms;
+                                    counter++;
+                                    roots[retweet_counter + retweet_counter_tmp] = mat->place[i].column;
+                                    retweet_counter_tmp++;
+                                }
                             }
                         }
-                    }
 
+                    }
                 }
             }
         }
 
     }
+    size_data = counter;
 
     delete [] truemap;
     delete [] roots;
@@ -175,11 +230,24 @@ int main(int argc, char**argv)  // generating test data
     int t_max = atoi(argv[6]);
 
 
-    matrix mat(quantity_users, copy_prob, read_prob);
+    matrix mat(quantity_users, copy_prob, density);
     table  tbl(&mat, read_prob, number_of_msg, t_max);
 
-    //tbl.fprint((char*)"data/data.txt");
-    if (quantity_users < 20)
+    tbl.fprint((char*)"data/msg.dat");
+    tbl.fprint_users((char*)"data/users.dat");
+    if (quantity_users < 21)
         mat.print();
+
+    mat.fprint((char*)"mat/mat", (char*)"mat/users");
+    matrix mat2((char*)"mat/mat", (char*)"mat/users");
+
+    if (quantity_users < 21)
+        mat.print();
+
+    FILE *fin;
+    fin = fopen ("data/metadata.dat", "w");
+    fprintf(fin, "%d %d", tbl.size_data, tbl.quantity_users - 1);
+    fclose(fin);
+
     return 0;
 }

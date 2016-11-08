@@ -44,11 +44,10 @@ int main(int argc, char** argv){
 
     cout << "\ntime_A = " << (double)time_A / CLOCKS_PER_SEC << " time_B = " << (double)time_B / CLOCKS_PER_SEC << endl;
     cout << "Время " << (double)time / CLOCKS_PER_SEC << endl;
+
+    //for (i = 0; i < max_folowers; i++)
+    //    stats[i] = 0;
 /*
-    for (i = 0; i < max_folowers; i++)
-        stats[i] = 0;
-
-
     FILE *fout = fopen("out/stats_folowers", "w");
     for (i = 0; i < weight.quantity_users; i++){
         tmp = weight.end[i] - weight.begin[i];
@@ -58,12 +57,25 @@ int main(int argc, char** argv){
     for (i = 0; i < max_folowers; i++)
         fprintf(fout, "%d %d\n", i, stats[i]);
     fclose(fout);
-*/
+
     tbl.get_user_names((char*)"data/users.dat", (char *)"data/metadata.dat");
     print_graph_folowers((char*)"out/graph_followers.dat", &tbl, &weight);
-/*
-    weight.sort_cl();
 
+*/
+    matrix mat2((char*)"mat/mat", (char*)"mat/users");
+
+
+    weight.clean(0.05);
+    double rez;
+    rez = check(&weight, &mat2);
+    printf("\n F1 = %f\n", rez);
+    if (weight.quantity_users < 21){
+        mat2.print();
+        weight.print();
+    }
+
+    weight.sort_cl();
+/*
     for (i = 0; i < max_folowers; i++)
         stats[i] = 0;
 
