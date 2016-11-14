@@ -4,7 +4,8 @@ int bernouli (double p)
 {
     if ((double)rand()/RAND_MAX < p)
         return 1;
-    else return 0;
+    else
+        return 0;
 }
 
 matrix::matrix(int quantity_users_, double p, double density)
@@ -12,13 +13,13 @@ matrix::matrix(int quantity_users_, double p, double density)
     int i, j;
     int counter = 0;
     quantity_users = quantity_users_;
-    size = (int)(quantity_users*quantity_users)*density*2;
+    size = (int)(quantity_users*quantity_users)*density*3;
 
+    cout << "size = " << size << endl;
     generate_users(quantity_users);
 
-    printf("size = %d\n", size);
-
-    if (size > 0){
+    if (size > 0)
+    {
         place = new pair1[size];
         val   = new double[size];
     }
@@ -32,7 +33,7 @@ matrix::matrix(int quantity_users_, double p, double density)
     {
         for (j = 0; j < quantity_users; j++)
         {
-            if (bernouli(density) == 1)
+            if (bernouli(density) == 1 && j != i)
             {
                 val[counter]   = p;
                 place[counter] = pair1(i, j);
@@ -42,8 +43,9 @@ matrix::matrix(int quantity_users_, double p, double density)
     }
 
     size = counter;
-
-    for (i = 0; i < quantity_users; i++){
+    cout << "size = " << size << endl;
+    for (i = 0; i < quantity_users; i++)
+    {
         begin[i] = -1;
         end[i]   = -1;
     }
@@ -52,7 +54,8 @@ matrix::matrix(int quantity_users_, double p, double density)
     begin[tmp_line] = 0;
     for (i = 1; i < size; i++)
     {
-        if (place[i].line != tmp_line){
+        if (place[i].line != tmp_line)
+        {
             end[tmp_line] = i;
             tmp_line = place[i].line;
             begin[tmp_line] = i;
@@ -60,7 +63,7 @@ matrix::matrix(int quantity_users_, double p, double density)
     }
     end[tmp_line] = size;
 
-    for (i = 0; i < size; i++)
+    for (i = 0; i < quantity_users; i++)
     {
         if (begin[i] == -1)
         {
@@ -76,7 +79,8 @@ matrix::matrix(int quantity_users_, double p, double density)
 
     size = counter;
 
-    for (i = 0; i < quantity_users; i++){
+    for (i = 0; i < quantity_users; i++)
+    {
         begin[i] = -1;
         end[i]   = -1;
     }
@@ -85,7 +89,8 @@ matrix::matrix(int quantity_users_, double p, double density)
     begin[tmp_line] = 0;
     for (i = 1; i < size; i++)
     {
-        if (place[i].line != tmp_line){
+        if (place[i].line != tmp_line)
+        {
             end[tmp_line] = i;
             tmp_line = place[i].line;
             begin[tmp_line] = i;
@@ -94,7 +99,8 @@ matrix::matrix(int quantity_users_, double p, double density)
     end[tmp_line] = size;
 }
 
-void table::generate_users(int N){
+void table::generate_users(int N)
+{
     int j;
     int counter = 0;
 
@@ -106,7 +112,8 @@ void table::generate_users(int N){
         users[j] = j;
 }
 
-void matrix::generate_users(int N){
+void matrix::generate_users(int N)
+{
     int j;
     int counter = 0;
 
@@ -153,7 +160,6 @@ table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
             roots[i]   = -1;
         }
 
-
         root = k % mat->quantity_users;
 
         truemap[root]             = 0;
@@ -170,7 +176,6 @@ table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
         {
             retweet_counter     += retweet_counter_tmp;
             retweet_counter_tmp = 0;
-
             for (j = 0; j < retweet_counter; j++)
             {
                 local_root = roots[j];
@@ -178,7 +183,6 @@ table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
                 {
                     if (local_root > quantity_users - 1 || local_root < 0)
                         printf("Error\ntable::table(matrix * mat, double read_p, int number_of_msg, int t_max)\nillegal local_root %d\n", local_root);
-                    //printf("local_root = %d beg = %d end = %d\n ", local_root, mat->begin[local_root], mat->end[local_root]);
                     for (i = mat->begin[local_root]; i < mat->end[local_root]; i++)
                     {
                         if (truemap[mat->place[i].column] == 1)
@@ -213,40 +217,26 @@ table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
 
 }
 
-int main(int argc, char**argv)  // generating test data
+int main(void)  // generating test data
 {
-    if (argc != 7)
-    {
-        printf("Illegal in! I need: ./gen  <num of users> <density> <copy_prob> <read_prob> <num of msg> <T_MAX>\n");
-        return 0;
-    }
+    srand(SRAND_PARAMETER_MATRIX);
+    matrix mat(QUANTITY_USERS, COPY_PROB, DENSITY);
+    mat.fprint("mat/mat", "mat/users");
 
-    int quantity_users = atoi(argv[1]);
-    double density, copy_prob, read_prob;
-    density   = atof(argv[2]);
-    copy_prob = atof(argv[3]);
-    read_prob = atof(argv[4]);
-    int number_of_msg = atoi(argv[5]);
-    int t_max = atoi(argv[6]);
+    srand(SRAND_PARAMETER_TABLE);
+    table tbl(&mat, READ_PROB, NUM_OF_MSG, T_MAX);
 
-
-    matrix mat(quantity_users, copy_prob, density);
-    table  tbl(&mat, read_prob, number_of_msg, t_max);
+    cout << "size_data = " << tbl.size_data << endl;
 
     tbl.fprint((char*)"data/msg.dat");
     tbl.fprint_users((char*)"data/users.dat");
-    if (quantity_users < 21)
-        mat.print();
 
-    mat.fprint((char*)"mat/mat", (char*)"mat/users");
-    matrix mat2((char*)"mat/mat", (char*)"mat/users");
-
-    if (quantity_users < 21)
+    if (mat.quantity_users < 21)
         mat.print();
 
     FILE *fin;
     fin = fopen ("data/metadata.dat", "w");
-    fprintf(fin, "%d %d", tbl.size_data, tbl.quantity_users - 1);
+    fprintf(fin, "%d %d", tbl.size_data, tbl.quantity_users);
     fclose(fin);
 
     return 0;

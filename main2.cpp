@@ -7,8 +7,8 @@ int main(void){
 
 
     int size = -1;
-    table tbl((char*)"data/msg.dat", (char*)"data/metadata.dat", size);
-    matrix weight((char*)"out/mat", (char*)"out/mat_users");
+    table tbl("data/msg.dat", "data/metadata.dat", size);
+    matrix weight("out/mat", "out/mat_users");
 
     cout  << endl << "weight.size = " << weight.size << " weight.quantity_users = " << weight.quantity_users << endl << endl;
     cout << "tbl.size_data = " << tbl.size_data << endl;
@@ -25,9 +25,9 @@ int main(void){
     weight.clean(0.5);
     cout << "size = " << weight.size << endl;
 
-    tbl.get_user_names((char*)"data/users.dat", (char *)"data/metadata.dat");
+    tbl.get_user_names("data/users.dat", "data/metadata.dat");
 
-    print_graph_folowers_test((char*)"out/graph_followers_test.dat", &tbl, &weight);
+    print_graph_folowers_test("out/graph_followers_test.dat", &tbl, &weight);
 
     for (i = 0; i < max_followers; i++)
         stats[i] = 0;
@@ -42,7 +42,7 @@ int main(void){
         fprintf(fout, "%d %d\n", i, stats[i]);
     fclose(fout);
 
-    print_graph_folowers((char*)"out/graph_followers.dat", &tbl, &weight);
+    print_graph_folowers("out/graph_followers.dat", &tbl, &weight);
 
     weight.sort_cl();
 
@@ -50,7 +50,8 @@ int main(void){
         stats[i] = 0;
 
     fout = fopen("out/stats_follows", "w");
-    for (i = 0; i < weight.quantity_users; i++){
+    for (i = 0; i < weight.quantity_users; i++)
+    {
         tmp = weight.end[i] - weight.begin[i];
         if (tmp >= 0 && tmp < max_followers)
             stats[tmp] += 1;
@@ -59,7 +60,7 @@ int main(void){
         fprintf(fout, "%d %d\n", i, stats[i]);
     fclose(fout);
 
-    print_graph_folows((char*)"out/graph_follows.dat", &tbl, &weight);
+    print_graph_folows("out/graph_follows.dat", &tbl, &weight);
 
     delete [] stats;
     return 0;

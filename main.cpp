@@ -1,46 +1,34 @@
 #include "headers.h"
 
-int main(int argc, char** argv){
+int main(int argc, char** argv)
+{
     long int time = clock();
     int size = -1;
     int time_A, time_B;
 
-    if (argc == 2){
+    if (argc == 2)
+    {
         size = atoi(argv[1]);
     }
-    table tbl((char*)"data/msg.dat", (char*)"data/metadata.dat", size);
+    table tbl("data/msg.dat", "data/metadata.dat", size);
     matrix weight(&tbl);
     matrix lag(&weight);
-    //weight.fprint((char*)"out/mat", (char*)"out/mat_users");
+    matrix weight_prev(&weight);
+    matrix lag_prev(&weight);
 
-    cout  << endl << "weight.size = " << weight.size << " weight.quantity_users = " << weight.quantity_users << endl << endl;
+    cout << endl << "weight.size = " << weight.size << " weight.quantity_users = " << weight.quantity_users << endl << endl;
     cout << "tbl.size_data = " << tbl.size_data << endl;
-    cout << "tbl.quantity_chains = " << tbl.quantity_chains << endl;
-    cout << "tbl.size_activity_m = " << tbl.size_activity_m << endl;
-    cout << "tbl.size_activity_t = " << tbl.size_activity_t << endl;
     cout << "tbl.quantity_users = " << tbl.quantity_users << endl;
-
-    //matrix weight2((char*)"out/mat", (char*)"out/mat_users");
-    //cout << "weight2.size = " << weight2.size << " weight2.quantity_users = " << weight2.quantity_users << endl << endl;
-    //weight2.print();
 
     time = clock() - time;
     cout << "\n" << "Время " << (double)time / CLOCKS_PER_SEC << endl;
     time = clock();
 
-    algorithm(&tbl, &weight, &lag, &time_A, &time_B);
+    algorithm(&tbl, &weight, &lag, &weight_prev, &lag_prev, &time_A, &time_B);
 
     time = clock() - time;
 
-    weight.fprint((char*)"out/mat", (char*)"out/mat_users");
-
-    if (weight.quantity_users < 15){
-        tbl.print_users();
-        cout << endl << "weight\n";
-        weight.print();
-        cout << "lag\n";
-        lag.print();
-    }
+    weight.fprint("out/mat", "out/mat_users");
 
     cout << "\ntime_A = " << (double)time_A / CLOCKS_PER_SEC << " time_B = " << (double)time_B / CLOCKS_PER_SEC << endl;
     cout << "Время " << (double)time / CLOCKS_PER_SEC << endl;
@@ -49,7 +37,8 @@ int main(int argc, char** argv){
     //    stats[i] = 0;
 /*
     FILE *fout = fopen("out/stats_folowers", "w");
-    for (i = 0; i < weight.quantity_users; i++){
+    for (i = 0; i < weight.quantity_users; i++)
+    {
         tmp = weight.end[i] - weight.begin[i];
         if (tmp >= 0 && tmp < max_folowers)
             stats[tmp] += 1;
@@ -62,14 +51,14 @@ int main(int argc, char** argv){
     print_graph_folowers((char*)"out/graph_followers.dat", &tbl, &weight);
 
 */
-    matrix mat2((char*)"mat/mat", (char*)"mat/users");
-
+    matrix mat2("mat/mat", "mat/users");
 
     weight.clean(0.05);
-    double rez;
-    rez = check(&weight, &mat2);
-    printf("\n F1 = %f\n", rez);
-    if (weight.quantity_users < 21){
+    double res;
+    res = check(&weight, &mat2);
+    printf("\n F1 = %f\n", res);
+    if (weight.quantity_users < 21)
+    {
         mat2.print();
         weight.print();
     }

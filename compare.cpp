@@ -1,7 +1,9 @@
 #include "headers.h"
 
-int cmp_users(ulli a, ulli b){
-    if ( a < b){
+int cmp_users(ulli a, ulli b)
+{
+    if ( a < b)
+    {
         return -1;
     }
     else if (a > b)
@@ -9,11 +11,13 @@ int cmp_users(ulli a, ulli b){
     return 0;
 }
 
-int compare_users (void const * a, void const * b){
+int compare_users (void const * a, void const * b)
+{
     return cmp_users(*(ulli*)a, *(ulli*)b);
 }
 
-int cmp(msg a, msg b){
+int cmp(msg a, msg b)
+{
     if (a.id_m < b.id_m)
         return -1;
     else if (a.id_m > b.id_m)
@@ -34,7 +38,8 @@ int compare_msg ( void const * a,  void const * b)
    return cmp(*(msg*)a, *(msg*)b);
 }
 
-int cmp_act_t(msg a, msg b){
+int cmp_act_t(msg a, msg b)
+{
     if (a.id_p < b.id_p)
         return -1;
     else if (a.id_p > b.id_p)
@@ -51,7 +56,8 @@ int compare_act_t ( void const * a,  void const * b)
   return cmp_act_t(*(msg*)a, *(msg*)b);
 }
 
-int cmp_act_m(msg a, msg b){
+int cmp_act_m(msg a, msg b)
+{
     if (a.id_p < b.id_p)
         return -1;
     else if (a.id_p > b.id_p)
@@ -68,7 +74,8 @@ int compare_act_m ( void const * a,  void const * b)
    return cmp_act_m(*(msg*)a, *(msg*)b);
 }
 
-int cmp(pair1 a, pair1 b){
+int cmp(pair1 a, pair1 b)
+{
     if (a.line < b.line)
         return -1;
     else if (a.line > b.line)
@@ -80,7 +87,8 @@ int cmp(pair1 a, pair1 b){
     return 0;
 }
 
-int cmp_cl(pair1 a , pair1 b){
+int cmp_cl(pair1 a , pair1 b)
+{
     if (a.column < b.column)
         return -1;
     else if (a.column > b.column)
@@ -92,7 +100,8 @@ int cmp_cl(pair1 a , pair1 b){
     return 0;
 }
 
-int compare_pair_cl (void const * a, void const * b){
+int compare_pair_cl (void const * a, void const * b)
+{
     return cmp_cl(*(pair1*)a, *(pair1*)b);
 }
 
@@ -101,7 +110,8 @@ int compare_pair ( void const * a,  void const * b)
   return cmp(*(pair1*)a, *(pair1*)b);
 }
 
-int cmp(void *a, void *b, char type_flag, char func_flag){
+int cmp(void *a, void *b, char type_flag, char func_flag)
+{
     // a, b have type int
     if (type_flag == 'i')
        return *(int*)a - *(int*)b;
@@ -120,7 +130,8 @@ int cmp(void *a, void *b, char type_flag, char func_flag){
         return cmp(*(pair1*)a, *(pair1*)b);
 
     // a, b have type msg
-    else if (type_flag = 'm'){
+    else if (type_flag = 'm')
+    {
         if (func_flag == 'd') // for data array
             return cmp(*(msg*)a, *(msg*)b);
         else if (func_flag == 't') // for activity_t array

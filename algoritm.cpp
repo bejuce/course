@@ -7,14 +7,16 @@ long int get_fulltime(void)
     return buf.tv_sec * 100 + buf.tv_usec / 10000;
 }
 
-void algorithm(table *tbl, matrix *weight, matrix* lag, int *time_A, int *time_B){
+void algorithm(table *tbl, matrix *weight, matrix* lag, matrix *weight_prev, matrix* lag_prev, int *time_A, int *time_B)
+{
 
     int iter, m, j, i, k;
     int index, del;
+    double norm = 1;
 
     int tmp_time;
 
-    unsigned long long int id_m;
+    ulli id_m;
 
     double done;
     double tmp;
@@ -28,11 +30,7 @@ void algorithm(table *tbl, matrix *weight, matrix* lag, int *time_A, int *time_B
     int length;
     int start;
     int end;
-/*
-    int quantity_users = weight->quantity_users;
-    int size = weight->size;
-*/
-    //matrix lag(weight);
+
     matrix numerator(weight);
     matrix denominator(weight);
 
@@ -40,28 +38,31 @@ void algorithm(table *tbl, matrix *weight, matrix* lag, int *time_A, int *time_B
 
     for (j = 0; j < weight->size; j++)
     {
-        weight->val[j] = 0.5;
-        lag->val[j]    = 0.1;
-    }
+        weight->val[j]      = 0.5;
+        lag->val[j]         = 0.1;
+        weight_prev->val[j] = 0.5;
+        lag_prev->val[j]    = 0.1;
 
-    for (iter = 0; iter < MAX_ITER; iter++)
+    }
+    iter = 0;
+    while (norm > EPS_NORM && iter < MAX_ITER)
     {
         for (j = 0; j < weight->size; j++)
         {
             numerator.val[j]   = 0.0;
             denominator.val[j] = 0.0;
         }
-        //if (iter < 10)
-        //    printf("iter  %d A progress: ", iter);
-        //else
-        //    printf("iter %d A progress: ", iter);
+        if (iter < 10)
+            printf("iter %d A1 progress: ", iter);
+        else
+            printf("iter %d A1 progress: ", iter);
 
         tmp_time = clock();
 
         for (m = 0; m < M; m ++)
         {
-            //done = (double ) m / M;
-            //printf("%.2f", done);
+            done = (double ) m / M;
+            printf("%.2f", done);
 
             int * users;
             start  = hash_chains[m];
@@ -103,7 +104,7 @@ void algorithm(table *tbl, matrix *weight, matrix* lag, int *time_A, int *time_B
 
             printf("\b\b\b\b");
         }
-
+        printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
         double value;
         for (i = 0; i < weight->size; i++)
         {
@@ -114,26 +115,25 @@ void algorithm(table *tbl, matrix *weight, matrix* lag, int *time_A, int *time_B
                 value = 0.0;
             if (value < EPS)
                 value = 0.0;
+            //value  = 0.1;
             lag->val[i] = value;
         }
-        printf("lag%d\n", iter);
-/*
-        cout << "iter = " << iter << "\n";
-        cout << "numerator\n";
-        numerator.print();
-        cout << "denominator\n";
-        denominator.print();
-*/
+
         for (j = 0; j < weight->size; j++)
         {
             numerator.val[j]   = 0.0;
             denominator.val[j] = 0.0;
         }
 
+        if (iter < 10)
+            printf("iter %d A2 progress: ", iter);
+        else
+            printf("iter %d A2 progress: ", iter);
+
         for (m = 0; m < M; m ++)
         {
-            //done = (double ) m / M;
-            //printf("%.2f", done);
+            done = (double ) m / M;
+            printf("%.2f", done);
 
             int * users;
             start  = hash_chains[m];
@@ -176,26 +176,24 @@ void algorithm(table *tbl, matrix *weight, matrix* lag, int *time_A, int *time_B
 
             delete [] users;
 
-            //printf("\b\b\b\b");
+            printf("\b\b\b\b");
         }
 
-        //tmp_time = clock() - tmp_time;
-        //*time_A += tmp_time;
-
-        //printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
-        //if (iter < 10)
-        //    printf("iter  %d B progress: ", iter);
-        //else
-        //    printf("iter %d B progress: ", iter);
+        printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+        if (iter < 10)
+            printf("iter  %d B progress: ", iter);
+        else
+            printf("iter %d B progress: ", iter);
 
         int line;
         int column;
 
         tmp_time = clock();
 
-        for (i = 0; i < weight->size; i++){
-            //done = (double ) i / weight->size;
-            //printf("%.2f", done);
+        for (i = 0; i < weight->size; i++)
+        {
+            done = (double ) i / weight->size;
+            printf("%.2f", done);
 
             line   = denominator.place[i].line;
             column = denominator.place[i].column;
@@ -203,14 +201,16 @@ void algorithm(table *tbl, matrix *weight, matrix* lag, int *time_A, int *time_B
             int start = tbl->hash_activity_m[line];
             int end   = (line < tbl->quantity_users - 1) ? tbl->hash_activity_m[line + 1] : tbl->size_activity_m;
 
-            for (j = start; j < end; j++){
+            for (j = start; j < end; j++)
+            {
                 if (!exist(tbl, column, tbl->activity_m[j].id_m))
                     denominator.val[i] += 1.0;
             }
 
-            //printf("\b\b\b\b");
+            printf("\b\b\b\b");
         }
         //printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+        printf("\n%f\n", norm);
 
         tmp_time = clock() - tmp_time;
         *time_B += tmp_time;
@@ -226,12 +226,20 @@ void algorithm(table *tbl, matrix *weight, matrix* lag, int *time_A, int *time_B
             weight->val[i] = value;
         }
 
-        //cout << endl;
-    }
+        iter++;
+        norm  = 0;
+        value = cmp_matrix(weight, weight_prev);
+        norm  += value;
 
-    *time_A /= MAX_ITER;
-    *time_B /= MAX_ITER;
-    //cout << "time_A = " << time_A / CLOCKS_PER_SEC << endl << "time_B = " << time_B / CLOCKS_PER_SEC;
+        value = cmp_matrix(lag, lag_prev);
+        norm += value;
+
+        lag_prev->copy_matrix(lag);
+        weight_prev->copy_matrix(weight);
+        //weight->print();
+        //weight_prev->print();
+    }
+    cout << "norm = " << norm << " iter = " << iter << endl;
 }
 
 bool exist(table *tbl, int id, unsigned long long int id_m){
@@ -254,7 +262,8 @@ bool exist(table *tbl, int id, unsigned long long int id_m){
     return false;
 }
 
-int active(table *tbl, msg ms){
+int active(table *tbl, msg ms)
+{
 
     int id = tbl->user(ms.id_p);
 
@@ -272,7 +281,8 @@ int active(table *tbl, msg ms){
 }
 
 
-int delta(table *tbl, int src, int dest){
+int delta(table *tbl, int src, int dest)
+{
 
     int act = active(tbl, tbl->data[dest]);
     int rez = (tbl->data[dest].time - tbl->data[src].time) / MIN_INTERVAL;
