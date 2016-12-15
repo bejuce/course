@@ -31,13 +31,28 @@ matrix::matrix(int quantity_users_, double p, double density)
 
     for (i = 0; i < quantity_users; i++)
     {
-        for (j = 0; j < quantity_users; j++)
+        if (i % QUANTITY_PUBLICS == 0)
         {
-            if (bernouli(density) == 1 && j != i)
+            for (j = 0; j < quantity_users; j++)
             {
-                val[counter]   = p;
-                place[counter] = pair1(i, j);
-                counter++;
+                if (bernouli(DENSITY_PUBLICS) == 1 && j != i)
+                {
+                    val[counter]   = p;
+                    place[counter] = pair1(i, j);
+                    counter++;
+                }
+            }
+        }
+        else
+        {
+            for (j = 0; j < quantity_users; j++)
+            {
+                if (bernouli(density) == 1 && j != i)
+                {
+                    val[counter]   = p;
+                    place[counter] = pair1(i, j);
+                    counter++;
+                }
             }
         }
     }
@@ -135,7 +150,7 @@ table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
     size_activity_m = 0;
     size_activity_t = 0;
     quantity_users = mat->quantity_users;
-    size_data = 50*number_of_msg;
+    size_data = 500*number_of_msg;
 
     generate_users(quantity_users);
 
@@ -217,6 +232,34 @@ table::table(matrix * mat, double read_p, int number_of_msg, int t_max)
 
 }
 
+void count_stats_time(msg * ms, int size_stats, int size_data, const char* output_file)
+{
+    double * stats;
+    int denominator = 2;
+    size_stats /= denominator;
+    stats = new double [size_stats];
+
+    int i;
+    for (i = 0; i < size_stats; i++)
+        stats[i] = 0;
+
+    for (i = 0; i < size_data; i++)
+    {
+        if (ms[i].time < size_stats * 10)
+            stats[ms[i].time / denominator]++;
+    }
+
+    for (i = 0; i < size_stats; i++)
+        stats[i] /= size_data;
+
+    FILE *fout;
+    fout = fopen(output_file, "w");
+    for (i = 0; i < size_stats; i++)
+        fprintf(fout, "%d %f\n", i, stats[i]);
+    fclose(fout);
+    delete [] stats;
+}
+
 int main(void)  // generating test data
 {
     srand(SRAND_PARAMETER_MATRIX);
@@ -233,7 +276,10 @@ int main(void)  // generating test data
 
     if (mat.quantity_users < 21)
         mat.print();
-
+    if (COUNT_STATS_GAUSS == 1)
+    {
+        count_stats_time(tbl.data, T_MAX, tbl.size_data, "data/out_stats_time");
+    }
     FILE *fin;
     fin = fopen ("data/metadata.dat", "w");
     fprintf(fin, "%d %d", tbl.size_data, tbl.quantity_users);

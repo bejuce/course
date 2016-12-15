@@ -1,0 +1,439 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 47.14      4.51     4.51 471496945     0.00     0.00  cmp(void*, void*, char, char)
+ 13.27      5.78     1.27 545102320     0.00     0.00  msg::msg(msg const&)
+  7.00      6.45     0.67 181153414     0.00     0.00  pair1::pair1(pair1 const&)
+  5.96      7.02     0.57 26182050     0.00     0.00  int binarySearch<msg>(msg*, int, msg, char, char)
+  5.80      7.58     0.56 566505202     0.00     0.00  msg::~msg()
+  4.60      8.02     0.44                             algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*)
+  4.39      8.44     0.42 11856180     0.00     0.00  int binarySearch<unsigned long long>(unsigned long long*, int, unsigned long long, char, char)
+  3.19      8.74     0.31 21333000     0.00     0.00  exist(table*, int, unsigned long long)
+  2.72      9.00     0.26 21402882     0.00     0.00  msg::msg()
+  1.99      9.19     0.19  4851020     0.00     0.00  matrix::index(pair1)
+  1.25      9.31     0.12                             compare_pair(void const*, void const*)
+  0.84      9.39     0.08  4849050     0.00     0.00  active(table*, msg)
+  0.63      9.45     0.06                             pair1::pair1(int, int)
+  0.52      9.50     0.05 11855780     0.00     0.00  table::user(unsigned long long)
+  0.21      9.52     0.02                             table::fprint_users(char const*)
+  0.16      9.54     0.02                             matrix::clean_minimize(table*)
+  0.10      9.55     0.01        2     5.00     5.00  matrix::matrix(matrix*)
+  0.10      9.56     0.01                             compare_act_t(void const*, void const*)
+  0.10      9.57     0.01                             delta(table*, int, int)
+  0.05      9.57     0.01                             get_user(table*, int, int)
+  0.00      9.57     0.00  4849050     0.00     0.00  matrix::index(int, int)
+  0.00      9.57     0.00   517944     0.00     0.00  cmp(pair1, pair1)
+  0.00      9.57     0.00   160081     0.00     0.00  msg::operator=(msg const&)
+  0.00      9.57     0.00    91688     0.00     0.00  msg::fprint(_IO_FILE*)
+  0.00      9.57     0.00    23294     0.00     0.00  msg::read(_IO_FILE*)
+  0.00      9.57     0.00       10     0.00     0.00  cmp_matrix(matrix*, matrix*)
+  0.00      9.57     0.00       10     0.00     0.00  matrix::copy_matrix(matrix*)
+  0.00      9.57     0.00        2     0.00     0.00  matrix::~matrix()
+  0.00      9.57     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z12get_fulltimev
+  0.00      9.57     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z9cmp_usersyy
+  0.00      9.57     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN3msgC2Ev
+  0.00      9.57     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN5pair1C2Ev
+  0.00      9.57     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN5tableC2Ev
+  0.00      9.57     0.00        1     0.00     0.00  _GLOBAL__sub_I_main
+  0.00      9.57     0.00        1     0.00     0.00  table::get_chains()
+  0.00      9.57     0.00        1     0.00     0.57  table::get_activity()
+  0.00      9.57     0.00        1     0.00     0.08  table::clean_activity()
+  0.00      9.57     0.00        1     0.00     0.00  table::fprint_activity_m(char const*)
+  0.00      9.57     0.00        1     0.00     0.00  table::fprint_activity_t(char const*)
+  0.00      9.57     0.00        1     0.00     0.00  table::read(char const*)
+  0.00      9.57     0.00        1     0.00     0.00  table::clean()
+  0.00      9.57     0.00        1     0.00     0.00  table::fprint(char const*)
+  0.00      9.57     0.00        1     0.00     0.00  table::get_users()
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.10% of 9.57 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     96.6    0.44    8.80                 algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+                0.31    3.85 21333000/21333000     exist(table*, int, unsigned long long) [4]
+                0.08    1.76 4849050/4849050     active(table*, msg) [6]
+                0.00    1.47 4849050/4849050     matrix::index(int, int) [8]
+                0.24    1.04 6683460/11856180     int binarySearch<unsigned long long>(unsigned long long*, int, unsigned long long, char, char) [5]
+                0.03    0.00 6683460/11855780     table::user(unsigned long long) [16]
+                0.01    0.00 4849050/545102320     msg::msg(msg const&) [9]
+                0.01    0.00       2/2           matrix::matrix(matrix*) [20]
+                0.00    0.00 4849050/566505202     msg::~msg() [11]
+                0.00    0.00      10/10          cmp_matrix(matrix*, matrix*) [42]
+                0.00    0.00      10/10          matrix::copy_matrix(matrix*) [43]
+                0.00    0.00       2/2           matrix::~matrix() [44]
+                0.00    0.00       1/1           table::fprint(char const*) [56]
+-----------------------------------------------
+                0.84    0.44 88086272/471496945     matrix::index(pair1) [7]
+                1.22    0.63 127155758/471496945     int binarySearch<unsigned long long>(unsigned long long*, int, unsigned long long, char, char) [5]
+                2.45    1.28 256254915/471496945     int binarySearch<msg>(msg*, int, msg, char, char) [3]
+[2]     71.7    4.51    2.35 471496945         cmp(void*, void*, char, char) [2]
+                1.19    0.00 512509830/545102320     msg::msg(msg const&) [9]
+                0.65    0.00 176172544/181153414     pair1::pair1(pair1 const&) [10]
+                0.50    0.00 512509830/566505202     msg::~msg() [11]
+-----------------------------------------------
+                0.11    0.69 4849050/26182050     active(table*, msg) [6]
+                0.46    3.04 21333000/26182050     exist(table*, int, unsigned long long) [4]
+[3]     44.9    0.57    3.73 26182050         int binarySearch<msg>(msg*, int, msg, char, char) [3]
+                2.45    1.28 256254915/471496945     cmp(void*, void*, char, char) [2]
+-----------------------------------------------
+                0.31    3.85 21333000/21333000     algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[4]     43.4    0.31    3.85 21333000         exist(table*, int, unsigned long long) [4]
+                0.46    3.04 21333000/26182050     int binarySearch<msg>(msg*, int, msg, char, char) [3]
+                0.26    0.00 21333000/21402882     msg::msg() [12]
+                0.05    0.00 21333000/545102320     msg::msg(msg const&) [9]
+                0.04    0.00 42666000/566505202     msg::~msg() [11]
+-----------------------------------------------
+                0.00    0.00     400/11856180     table::clean_activity() [28]
+                0.01    0.05  323270/11856180     matrix::matrix(table*) [14]
+                0.17    0.76 4849050/11856180     active(table*, msg) [6]
+                0.24    1.04 6683460/11856180     algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[5]     23.7    0.42    1.85 11856180         int binarySearch<unsigned long long>(unsigned long long*, int, unsigned long long, char, char) [5]
+                1.22    0.63 127155758/471496945     cmp(void*, void*, char, char) [2]
+-----------------------------------------------
+                0.08    1.76 4849050/4849050     algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[6]     19.2    0.08    1.76 4849050         active(table*, msg) [6]
+                0.17    0.76 4849050/11856180     int binarySearch<unsigned long long>(unsigned long long*, int, unsigned long long, char, char) [5]
+                0.11    0.69 4849050/26182050     int binarySearch<msg>(msg*, int, msg, char, char) [3]
+                0.02    0.00 4849050/11855780     table::user(unsigned long long) [16]
+                0.01    0.00 4849050/545102320     msg::msg(msg const&) [9]
+                0.00    0.00 4849050/566505202     msg::~msg() [11]
+-----------------------------------------------
+                0.00    0.00    1970/4851020     check(matrix*, matrix*) [26]
+                0.19    1.28 4849050/4851020     matrix::index(int, int) [8]
+[7]     15.4    0.19    1.28 4851020         matrix::index(pair1) [7]
+                0.84    0.44 88086272/471496945     cmp(void*, void*, char, char) [2]
+-----------------------------------------------
+                0.00    1.47 4849050/4849050     algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[8]     15.4    0.00    1.47 4849050         matrix::index(int, int) [8]
+                0.19    1.28 4849050/4851020     matrix::index(pair1) [7]
+-----------------------------------------------
+                0.00    0.00  329170/545102320     compare_msg(void const*, void const*) [24]
+                0.00    0.00  615710/545102320     compare_act_m(void const*, void const*) [23]
+                0.00    0.00  616510/545102320     compare_act_t(void const*, void const*) [19]
+                0.01    0.00 4849050/545102320     active(table*, msg) [6]
+                0.01    0.00 4849050/545102320     algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+                0.05    0.00 21333000/545102320     exist(table*, int, unsigned long long) [4]
+                1.19    0.00 512509830/545102320     cmp(void*, void*, char, char) [2]
+[9]     13.3    1.27    0.00 545102320         msg::msg(msg const&) [9]
+-----------------------------------------------
+                0.00    0.00   16902/181153414     compare_pair_cl(void const*, void const*) [30]
+                0.02    0.00 4963968/181153414     compare_pair(void const*, void const*) [13]
+                0.65    0.00 176172544/181153414     cmp(void*, void*, char, char) [2]
+[10]     7.0    0.67    0.00 181153414         pair1::pair1(pair1 const&) [10]
+-----------------------------------------------
+                0.00    0.00   69882/566505202     table::~table() [29]
+                0.00    0.00  329170/566505202     compare_msg(void const*, void const*) [24]
+                0.00    0.00  615710/566505202     compare_act_m(void const*, void const*) [23]
+                0.00    0.00  616510/566505202     compare_act_t(void const*, void const*) [19]
+                0.00    0.00 4849050/566505202     active(table*, msg) [6]
+                0.00    0.00 4849050/566505202     algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+                0.04    0.00 42666000/566505202     exist(table*, int, unsigned long long) [4]
+                0.50    0.00 512509830/566505202     cmp(void*, void*, char, char) [2]
+[11]     5.8    0.56    0.00 566505202         msg::~msg() [11]
+-----------------------------------------------
+                0.00    0.00   23294/21402882     table::table(char const*, char const*, int) [25]
+                0.00    0.00   46588/21402882     table::get_activity() [27]
+                0.26    0.00 21333000/21402882     exist(table*, int, unsigned long long) [4]
+[12]     2.7    0.26    0.00 21402882         msg::msg() [12]
+-----------------------------------------------
+                                                 <spontaneous>
+[13]     1.4    0.12    0.02                 compare_pair(void const*, void const*) [13]
+                0.02    0.00 4963968/181153414     pair1::pair1(pair1 const&) [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[14]     0.7    0.00    0.06                 matrix::matrix(table*) [14]
+                0.01    0.05  323270/11856180     int binarySearch<unsigned long long>(unsigned long long*, int, unsigned long long, char, char) [5]
+                0.00    0.00  323270/11855780     table::user(unsigned long long) [16]
+                0.00    0.00  161634/517944      cmp(pair1, pair1) [38]
+-----------------------------------------------
+                                                 <spontaneous>
+[15]     0.6    0.06    0.00                 pair1::pair1(int, int) [15]
+-----------------------------------------------
+                0.00    0.00  323270/11855780     matrix::matrix(table*) [14]
+                0.02    0.00 4849050/11855780     active(table*, msg) [6]
+                0.03    0.00 6683460/11855780     algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[16]     0.5    0.05    0.00 11855780         table::user(unsigned long long) [16]
+-----------------------------------------------
+                                                 <spontaneous>
+[17]     0.2    0.02    0.00                 table::fprint_users(char const*) [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[18]     0.2    0.02    0.00                 matrix::clean_minimize(table*) [18]
+-----------------------------------------------
+                                                 <spontaneous>
+[19]     0.1    0.01    0.00                 compare_act_t(void const*, void const*) [19]
+                0.00    0.00  616510/545102320     msg::msg(msg const&) [9]
+                0.00    0.00  616510/566505202     msg::~msg() [11]
+-----------------------------------------------
+                0.01    0.00       2/2           algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[20]     0.1    0.01    0.00       2         matrix::matrix(matrix*) [20]
+-----------------------------------------------
+                                                 <spontaneous>
+[21]     0.1    0.01    0.00                 delta(table*, int, int) [21]
+-----------------------------------------------
+                                                 <spontaneous>
+[22]     0.1    0.01    0.00                 get_user(table*, int, int) [22]
+-----------------------------------------------
+                                                 <spontaneous>
+[23]     0.0    0.00    0.00                 compare_act_m(void const*, void const*) [23]
+                0.00    0.00  615710/545102320     msg::msg(msg const&) [9]
+                0.00    0.00  615710/566505202     msg::~msg() [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[24]     0.0    0.00    0.00                 compare_msg(void const*, void const*) [24]
+                0.00    0.00  329170/545102320     msg::msg(msg const&) [9]
+                0.00    0.00  329170/566505202     msg::~msg() [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[25]     0.0    0.00    0.00                 table::table(char const*, char const*, int) [25]
+                0.00    0.00       1/1           table::get_activity() [27]
+                0.00    0.00   23294/21402882     msg::msg() [12]
+                0.00    0.00       1/1           table::clean_activity() [28]
+                0.00    0.00   23294/91688       msg::fprint(_IO_FILE*) [40]
+                0.00    0.00   23294/160081      msg::operator=(msg const&) [39]
+                0.00    0.00       1/1           table::read(char const*) [54]
+                0.00    0.00       1/1           table::clean() [55]
+                0.00    0.00       1/1           table::get_users() [57]
+                0.00    0.00       1/1           table::get_chains() [51]
+-----------------------------------------------
+                                                 <spontaneous>
+[26]     0.0    0.00    0.00                 check(matrix*, matrix*) [26]
+                0.00    0.00    1970/4851020     matrix::index(pair1) [7]
+-----------------------------------------------
+                0.00    0.00       1/1           table::table(char const*, char const*, int) [25]
+[27]     0.0    0.00    0.00       1         table::get_activity() [27]
+                0.00    0.00   46588/21402882     msg::msg() [12]
+                0.00    0.00   46588/160081      msg::operator=(msg const&) [39]
+-----------------------------------------------
+                0.00    0.00       1/1           table::table(char const*, char const*, int) [25]
+[28]     0.0    0.00    0.00       1         table::clean_activity() [28]
+                0.00    0.00     400/11856180     int binarySearch<unsigned long long>(unsigned long long*, int, unsigned long long, char, char) [5]
+                0.00    0.00   46588/160081      msg::operator=(msg const&) [39]
+                0.00    0.00       1/1           table::fprint_activity_t(char const*) [53]
+                0.00    0.00       1/1           table::fprint_activity_m(char const*) [52]
+-----------------------------------------------
+                                                 <spontaneous>
+[29]     0.0    0.00    0.00                 table::~table() [29]
+                0.00    0.00   69882/566505202     msg::~msg() [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[30]     0.0    0.00    0.00                 compare_pair_cl(void const*, void const*) [30]
+                0.00    0.00   16902/181153414     pair1::pair1(pair1 const&) [10]
+-----------------------------------------------
+                0.00    0.00  161634/517944      matrix::matrix(table*) [14]
+                0.00    0.00  356310/517944      cmp_matrix(matrix*, matrix*) [42]
+[38]     0.0    0.00    0.00  517944         cmp(pair1, pair1) [38]
+-----------------------------------------------
+                0.00    0.00   23294/160081      table::table(char const*, char const*, int) [25]
+                0.00    0.00   43611/160081      table::clean() [55]
+                0.00    0.00   46588/160081      table::get_activity() [27]
+                0.00    0.00   46588/160081      table::clean_activity() [28]
+[39]     0.0    0.00    0.00  160081         msg::operator=(msg const&) [39]
+-----------------------------------------------
+                0.00    0.00   21806/91688       table::fprint(char const*) [56]
+                0.00    0.00   23294/91688       table::fprint_activity_m(char const*) [52]
+                0.00    0.00   23294/91688       table::fprint_activity_t(char const*) [53]
+                0.00    0.00   23294/91688       table::table(char const*, char const*, int) [25]
+[40]     0.0    0.00    0.00   91688         msg::fprint(_IO_FILE*) [40]
+-----------------------------------------------
+                0.00    0.00   23294/23294       table::read(char const*) [54]
+[41]     0.0    0.00    0.00   23294         msg::read(_IO_FILE*) [41]
+-----------------------------------------------
+                0.00    0.00      10/10          algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[42]     0.0    0.00    0.00      10         cmp_matrix(matrix*, matrix*) [42]
+                0.00    0.00  356310/517944      cmp(pair1, pair1) [38]
+-----------------------------------------------
+                0.00    0.00      10/10          algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[43]     0.0    0.00    0.00      10         matrix::copy_matrix(matrix*) [43]
+-----------------------------------------------
+                0.00    0.00       2/2           algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[44]     0.0    0.00    0.00       2         matrix::~matrix() [44]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [104]
+[45]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z12get_fulltimev [45]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [104]
+[46]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z9cmp_usersyy [46]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [104]
+[47]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN3msgC2Ev [47]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [104]
+[48]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN5pair1C2Ev [48]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [104]
+[49]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN5tableC2Ev [49]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [104]
+[50]     0.0    0.00    0.00       1         _GLOBAL__sub_I_main [50]
+-----------------------------------------------
+                0.00    0.00       1/1           table::table(char const*, char const*, int) [25]
+[51]     0.0    0.00    0.00       1         table::get_chains() [51]
+-----------------------------------------------
+                0.00    0.00       1/1           table::clean_activity() [28]
+[52]     0.0    0.00    0.00       1         table::fprint_activity_m(char const*) [52]
+                0.00    0.00   23294/91688       msg::fprint(_IO_FILE*) [40]
+-----------------------------------------------
+                0.00    0.00       1/1           table::clean_activity() [28]
+[53]     0.0    0.00    0.00       1         table::fprint_activity_t(char const*) [53]
+                0.00    0.00   23294/91688       msg::fprint(_IO_FILE*) [40]
+-----------------------------------------------
+                0.00    0.00       1/1           table::table(char const*, char const*, int) [25]
+[54]     0.0    0.00    0.00       1         table::read(char const*) [54]
+                0.00    0.00   23294/23294       msg::read(_IO_FILE*) [41]
+-----------------------------------------------
+                0.00    0.00       1/1           table::table(char const*, char const*, int) [25]
+[55]     0.0    0.00    0.00       1         table::clean() [55]
+                0.00    0.00   43611/160081      msg::operator=(msg const&) [39]
+-----------------------------------------------
+                0.00    0.00       1/1           algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [1]
+[56]     0.0    0.00    0.00       1         table::fprint(char const*) [56]
+                0.00    0.00   21806/91688       msg::fprint(_IO_FILE*) [40]
+-----------------------------------------------
+                0.00    0.00       1/1           table::table(char const*, char const*, int) [25]
+[57]     0.0    0.00    0.00       1         table::get_users() [57]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [45] _GLOBAL__sub_I__Z12get_fulltimev [6] active(table*, msg) [52] table::fprint_activity_m(char const*)
+  [46] _GLOBAL__sub_I__Z9cmp_usersyy [22] get_user(table*, int, int) [53] table::fprint_activity_t(char const*)
+  [47] _GLOBAL__sub_I__ZN3msgC2Ev [1] algorithm(table*, matrix*, matrix*, matrix*, matrix*, int*, int*) [54] table::read(char const*)
+  [48] _GLOBAL__sub_I__ZN5pair1C2Ev [41] msg::read(_IO_FILE*) [16] table::user(unsigned long long)
+  [49] _GLOBAL__sub_I__ZN5tableC2Ev [40] msg::fprint(_IO_FILE*) [55] table::clean()
+  [50] _GLOBAL__sub_I_main     [9] msg::msg(msg const&)   [56] table::fprint(char const*)
+  [42] cmp_matrix(matrix*, matrix*) [12] msg::msg()       [57] table::get_users()
+   [3] int binarySearch<msg>(msg*, int, msg, char, char) [11] msg::~msg() [43] matrix::copy_matrix(matrix*)
+   [5] int binarySearch<unsigned long long>(unsigned long long*, int, unsigned long long, char, char) [39] msg::operator=(msg const&) [18] matrix::clean_minimize(table*)
+  [13] compare_pair(void const*, void const*) [15] pair1::pair1(int, int) [7] matrix::index(pair1)
+  [19] compare_act_t(void const*, void const*) [10] pair1::pair1(pair1 const&) [8] matrix::index(int, int)
+  [38] cmp(pair1, pair1)      [51] table::get_chains()    [20] matrix::matrix(matrix*)
+   [2] cmp(void*, void*, char, char) [17] table::fprint_users(char const*) [44] matrix::~matrix()
+  [21] delta(table*, int, int) [27] table::get_activity()
+   [4] exist(table*, int, unsigned long long) [28] table::clean_activity()

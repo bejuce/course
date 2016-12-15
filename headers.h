@@ -134,6 +134,7 @@ public:
     pair1& operator=(const pair1&);
 };
 
+
 class matrix
 {
 public:
@@ -215,3 +216,8 @@ int intersect(ulli * , int , ulli* , int);
 int bernouli(double p);
 
 double check(matrix* mat1, matrix * mat2);
+
+void count_stats_time(msg *, int , int , const char* );
+
+
+long int get_fulltime(void);

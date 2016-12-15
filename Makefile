@@ -1,9 +1,9 @@
-FLAGS=-c -O3
+FLAGS=-c -O3 -lpthread
 run: main.o data.o matrix.o msg.o algoritm.o compare.o
-	g++ main.o data.o matrix.o msg.o algoritm.o compare.o -O3
+	g++ main.o data.o matrix.o msg.o algoritm.o compare.o -O3 -lpthread
 
 gen: test.o data.o matrix.o msg.o algoritm.o compare.o
-	g++ test.o msg.o data.o matrix.o algoritm.o compare.o -O3 -o gen
+	g++ test.o msg.o data.o matrix.o compare.o -O3 -o gen
 
 analize: main2.o data.o matrix.o msg.o algoritm.o compare.o
 	g++ main2.o data.o matrix.o msg.o algoritm.o compare.o -O3 -o analize

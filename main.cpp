@@ -22,16 +22,16 @@ int main(int argc, char** argv)
 
     time = clock() - time;
     cout << "\n" << "Время " << (double)time / CLOCKS_PER_SEC << endl;
-    time = clock();
+    time = get_fulltime();
 
     algorithm(&tbl, &weight, &lag, &weight_prev, &lag_prev, &time_A, &time_B);
 
-    time = clock() - time;
+    time = get_fulltime() - time;
 
     weight.fprint("out/mat", "out/mat_users");
 
     cout << "\ntime_A = " << (double)time_A / CLOCKS_PER_SEC << " time_B = " << (double)time_B / CLOCKS_PER_SEC << endl;
-    cout << "Время " << (double)time / CLOCKS_PER_SEC << endl;
+    cout << "Время " << (double)time << endl;
 
     //for (i = 0; i < max_folowers; i++)
     //    stats[i] = 0;
@@ -53,7 +53,7 @@ int main(int argc, char** argv)
 */
     matrix mat2("mat/mat", "mat/users");
 
-    weight.clean(0.05);
+    weight.clean(ERASE_PARAMETER);
     double res;
     res = check(&weight, &mat2);
     printf("\n F1 = %f\n", res);
