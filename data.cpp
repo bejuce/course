@@ -64,6 +64,8 @@ table::table(const char *file_name, const char* file_name2, int size)
 
     sort();
 
+    fprint("out/soer.dat");
+
     int i;
     int counter = 0;
     for (i = 0; i < size_data - 1; i++)
@@ -92,7 +94,8 @@ table::table(const char *file_name, const char* file_name2, int size)
     clean_activity();
 }
 
-int table::read(const char *file_name){
+int table::read(const char *file_name)
+{
     FILE *fin;
     int j;
     if ((fin = fopen(file_name, "r")) == NULL)

@@ -51,6 +51,7 @@ int main(int argc, char** argv)
     print_graph_folowers((char*)"out/graph_followers.dat", &tbl, &weight);
 
 */
+
     matrix mat2("mat/mat", "mat/users");
 
     weight.clean(ERASE_PARAMETER);
@@ -63,7 +64,8 @@ int main(int argc, char** argv)
         weight.print();
     }
 
-    weight.sort_cl();
+    //weight.sort_cl();
+
 /*
     for (i = 0; i < max_folowers; i++)
         stats[i] = 0;
@@ -77,9 +79,10 @@ int main(int argc, char** argv)
     for (i = 0; i < max_folowers; i++)
         fprintf(fout, "%d %d\n", i, stats[i]);
     fclose(fout);
-
-    print_graph_folows((char*)"out/graph_folows.dat", &tbl, &weight);
 */
+    //weight.clean(0.05);
+    //print_graph_folows((char*)"out/graph_folows.dat", &tbl, &weight);
+
     return 0;
 }
 

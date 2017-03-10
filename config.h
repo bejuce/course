@@ -1,11 +1,11 @@
 // test parameters
-#define QUANTITY_USERS   800
-#define DENSITY          0.005
+#define QUANTITY_USERS   200
+#define DENSITY          0.05
 #define DENSITY_PUBLICS  0.2
 #define QUANTITY_PUBLICS 20
 #define READ_PROB        0.1
 #define COPY_PROB        0.1
-#define NUM_OF_MSG       100000
+#define NUM_OF_MSG       10000
 #define T_MAX            150
 
 #define SRAND_PARAMETER_MATRIX 13
